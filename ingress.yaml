@@ -1,0 +1,122 @@
+# Chart values for the Camunda Platform 8 Helm chart.
+# This file deliberately contains only the values that differ from the defaults.
+# For changes and documentation, use your favorite diff tool to compare it with:
+# https://github.com/camunda/camunda-platform-helm/blob/main/charts/camunda-platform/values.yaml
+
+global:
+  ingress:
+    enabled: true
+    className: nginx
+    host: "camunda.zamunda.local"
+    tls:
+      enabled: true
+      secretName: "tls-secret"
+  image:
+    tag: latest
+    # pullPolicy: Always
+  identity:
+    auth:
+      publicIssuerUrl: "https://camunda.zamunda.local/auth/realms/camunda-platform"
+      operate:
+        redirectUrl: "https://camunda.zamunda.local/operate"
+      tasklist:
+        redirectUrl: "https://camunda.zamunda.local/tasklist"
+      optimize:
+        redirectUrl: "https://camunda.zamunda.local/optimize"
+      connectors:
+        redirectUrl: "https://camunda.zamunda.local/connectors"
+      webModeler:
+        redirectUrl: "https://camunda.zamunda.local/modeler"
+
+operate:
+  contextPath: "/operate"
+
+tasklist:
+  contextPath: "/tasklist"
+
+optimize:
+  contextPath: "/optimize"
+
+connectors:
+  enabled: true
+  inbound:
+    mode: oauth
+  contextPath: "/connectors"
+
+#  env:
+#    - name: CAMUNDA_OPERATE_CLIENT_USERNAME
+#      value: demo
+#    - name: CAMUNDA_OPERATE_CLIENT_PASSWORD
+#      value: demo
+
+#webModeler:
+# enabled: true
+#contextPath: "/modeler"
+#image:
+#pullSecrets:
+#- name: camunda-docker-registry
+#restapi:
+#mail:
+#fromAddress: info@digitalfinance.com
+
+#postgresql:
+#enabled: true
+
+#prometheusServiceMonitor:
+#  enabled: true
+
+identity:
+  contextPath: "/identity"
+  fullURL: "https://camunda.zamunda.local/identity"
+
+  keycloak:
+    extraEnvVars:
+      - name: KEYCLOAK_PROXY_ADDRESS_FORWARDING
+        value: "true"
+      - name: KEYCLOAK_FRONTEND_URL
+        value: "https://camunda.zamunda.local/auth"
+
+zeebe-gateway:
+  ingress:
+    enabled: true
+    className: nginx
+    host: "camunda.zamunda.local"
+    tls:
+      enabled: true
+      secretName: "tls-secret"
+  replicas: 2
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "2048Mi"
+      cpu: "1000m"
+
+zeebe:
+  clusterSize: 3
+  partitionCount: 3
+  replicationFactor: 3
+  pvcSize: 10Gi
+
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512M"
+    limits:
+      cpu: "512m"
+      memory: "2Gi"
+
+elasticsearch:
+  enabled: true
+  imageTag: 7.17.3
+  replicas: 1
+  minimumMasterNodes: 1
+  clusterHealthCheckParams: "wait_for_status=yellow&timeout=1s"
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512M"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
