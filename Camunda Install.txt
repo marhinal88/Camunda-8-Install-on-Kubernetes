@@ -15,10 +15,10 @@ kubectl get IngressClass
 
 helm install camunda-platform camunda/camunda-platform -f ingress.yaml
 
-kubectl patch svc default-ingress-nginx-controller -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.1.81"]}}'
+kubectl patch svc default-ingress-nginx-controller -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.27.64.215"]}}'
 
 snap install zbctl
 
 kubectl apply -f zeebe-gateway.yaml
 
-kubectl patch svc camunda-zeebe-gateway-lb -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.1.81"]}}'
+kubectl patch svc camunda-zeebe-gateway-lb -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.27.64.215"]}}'
