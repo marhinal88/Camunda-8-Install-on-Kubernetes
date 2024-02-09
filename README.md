@@ -8,15 +8,20 @@
 
 Устанавливаем Snap из репозитория EPEL, он понадобится нам для установки Helm:
 
+
 ```bash
 sudo yum install epel-release
+```
+```bash
 sudo yum install snapd
 ```
 Включаем сервис, создаем симлинк:
 ```bash
 sudo systemctl enable --now snapd.socket
+```
+```bash
 sudo ln -s /var/lib/snapd/snap /snap
-````
+```
 
 Устанавливаем helm:
 
