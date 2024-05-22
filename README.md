@@ -72,7 +72,7 @@ snap install zbctl
 ```
 Привязываем к балансировщику ip-адрес мастера:
 ```bash
-kubectl patch svc camunda-platform-zeebe-gateway -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.27.64.215"]}}'
+kubectl patch svc camunda-platform-zeebe-gateway -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.27.65.200"]}}'
 ```
 
 На этом процесс установки Camunda 8 завершен, в случае, если все выполнено правильно, в браузере по указанному ранее в конфигах URL, будет доступен веб-интерфейс Camunda, например:
