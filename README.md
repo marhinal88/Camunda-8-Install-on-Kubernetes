@@ -62,21 +62,17 @@ watch kubectl get nodes
 ```
 Процесс watch в любой момент можно прервать по ˆC
 
-Когда все поды поднялись, привязываем к балансировщику ingress ip-адрес мастера, в моем случае 172.27.64.215:
+Когда все поды поднялись, привязываем к балансировщику ingress ip-адрес мастера, в моем случае 172.27.65.200:
 ```bash
-kubectl patch svc ingress-nginx-controller -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.27.64.215"]}}'
+kubectl patch svc ingress-nginx-controller -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.27.65.200"]}}'
 ```
 Устанавливаем сервис управления zeebe с помощью snap:
 ```bash
 snap install zbctl
 ```
-Устанавливаем балансировщик zeebe, требуемый yaml так же выложен в репозитории:
-```bash
-kubectl apply -f zeebe-gateway.yaml
-```
 Привязываем к балансировщику ip-адрес мастера:
 ```bash
-kubectl patch svc camunda-zeebe-gateway-lb -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.27.64.215"]}}'
+kubectl patch svc camunda-platform-zeebe-gateway -n default -p '{"spec": {"type": "LoadBalancer", "externalIPs":["172.27.64.215"]}}'
 ```
 
 На этом процесс установки Camunda 8 завершен, в случае, если все выполнено правильно, в браузере по указанному ранее в конфигах URL, будет доступен веб-интерфейс Camunda, например:
