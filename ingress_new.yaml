@@ -84,7 +84,7 @@ zeebe-gateway:
     tls:
       enabled: true
       secretName: "tls-secret"
-  replicas: 2
+  replicas: 1
   resources:
     requests:
       memory: "512Mi"
@@ -92,6 +92,28 @@ zeebe-gateway:
     limits:
       memory: "2048Mi"
       cpu: "1000m"
+  service:
+    
+    type: LoadBalancer
+    
+    loadBalancerIP: ""
+    
+    loadBalancerSourceRanges: []
+    
+    httpPort: 9600
+   
+    httpName: "http"
+    
+    gatewayPort: 26500
+    
+    gatewayName: "gateway"
+    
+    internalPort: 26502
+    
+    internalName: "internal"
+    
+    annotations: {}
+
 
 zeebe:
   clusterSize: 3
