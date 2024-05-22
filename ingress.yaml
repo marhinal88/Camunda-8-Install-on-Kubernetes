@@ -109,7 +109,7 @@ zeebe:
 
 elasticsearch:
   enabled: true
-  imageTag: 7.17.3
+  imageTag: 7.17.21
   replicas: 1
   minimumMasterNodes: 1
   clusterHealthCheckParams: "wait_for_status=yellow&timeout=1s"
